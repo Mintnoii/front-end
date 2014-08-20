@@ -150,8 +150,10 @@ export const renderBlock = (block: any, options?: any) => {
         <hr className="bg-gray h-0.5 my-2 w-full dark:bg-slate-800"></hr>
       )
     default:
-      return `👾 Unsupported block (${type === 'unsupported' ? 'unsupported by Notion API' : type
-        })`
+      return null
+      // return `👾 Unsupported block (${type === 'unsupported' ? 'unsupported by Notion API' : type
+      //   })`
+
   }
 }
 // case 'embed':
