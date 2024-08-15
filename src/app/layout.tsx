@@ -1,25 +1,32 @@
 import './global.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { Navbar } from './components/nav'
+import { Navbar } from '@/widgets/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 // import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Front-end Fun',
+    template: '%s | Front-end Fun',
   },
-  description: 'This is my portfolio.',
+  description: '前端的乐趣',
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'Front-end Fun',
+    description: 'Front-end Fun, have fun.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Front-end Fun',
     locale: 'en_US',
     type: 'website',
   },

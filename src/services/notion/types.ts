@@ -1,4 +1,8 @@
-import {IBlock as NKIBlock, IBlockObject,StatusPropertyItemObjectResponse} from "@tachikomas/notion-kit"
+import { IBlock as NKIBlock, IBlockObject,StatusPropertyItemObjectResponse } from "@tachikomas/notion-kit"
+
+export interface Loose {
+  [key: string]: any
+}
 
 export type IBlockObjectResp = IBlockObject & {
   children: IBlockObjectResp[]
@@ -8,7 +12,7 @@ export interface IBlock extends NKIBlock{
   children: IBlock[],
 }
 
-export interface IDataItem {
+export interface IDataItem extends Loose{
   id: string
   name: string
   cover: string
@@ -16,6 +20,7 @@ export interface IDataItem {
 }
 
 export interface IPost extends IDataItem {
+  category_name: string
   tags?: any[]
 }
 

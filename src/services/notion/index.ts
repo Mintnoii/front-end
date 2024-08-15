@@ -1,17 +1,28 @@
 import {NotionKit,IPageObject} from "@tachikomas/notion-kit"
-import { IBlock, IPost, IProject, ITag, IBlockObjectResp } from '@/services/notion/types'
+import { IBlock, IPost, IProject, ITag, IBlockObjectResp, Loose } from '@/services/notion/types'
 import { formatProject, formatPageInfo, formatContent } from './format'
 const {notion, queryDatabase, retrievePage, retrieveBlockChildren }  = new NotionKit({ token: process.env.NOTION_TOKEN })
 export { notion, queryDatabase, retrieveBlockChildren, retrievePage }
 
-export const getBlogs = async (database_id: string): Promise<IPost[]> => {
+export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<IPost[]> => {
+  // const moreFilters = filters || []
   const dbRes = await queryDatabase({
     database_id,
     filter: {
-      property: 'Status',
-      status: {
-        equals: 'Blog',
-      }
+      "and": [
+      {
+        property: "Status",
+        status: {
+          equals: 'Blog',
+        }
+      },
+      {
+        property: "Category",
+        select: {
+          equals: '前端架构'
+        }
+      },
+    ],
     }
   })
   return dbRes.results.map((page) => formatPageInfo(page as IPageObject))
