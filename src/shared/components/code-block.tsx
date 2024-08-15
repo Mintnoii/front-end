@@ -1,3 +1,4 @@
+'use client'
 import { CopyBlock, dracula } from "react-code-blocks"
 
 type Props = {

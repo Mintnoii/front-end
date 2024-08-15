@@ -1,3 +1,4 @@
+'use client'
 import {Accordion, AccordionItem, AccordionProps, AccordionItemProps} from "@nextui-org/react";
 
 interface ICustomAccordion {

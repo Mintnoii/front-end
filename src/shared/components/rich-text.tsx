@@ -1,3 +1,4 @@
+'use client'
 import classnames from 'classnames'
 import {Code} from "@nextui-org/react"
 import {Link} from './link'

@@ -9,9 +9,8 @@ export async function generateStaticParams() {
 }
 
 export default async function Blog({ params }: { params: { slug: string } }) {
-  console.log(params,'params')
   const page = await getPage(params.slug)
-
+  console.log(params,'params',page)
   return (
     <div className="flex relative">
       <div className='content-wrapper pb-10 prose'>
