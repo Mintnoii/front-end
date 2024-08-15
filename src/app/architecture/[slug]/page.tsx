@@ -2,101 +2,34 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/app/components/mdx'
 import { formatDate, getBlogPosts } from '@/app/blog/utils'
 import { baseUrl } from '@/app/sitemap'
-// import {getPublishedPosts,getPage } from '@/services/notion'
+import {renderBlocks} from '@/widgets/block-render'
+import {getThinking,getPage } from '@/services/notion'
+
+interface Props {
+  params: {
+    slug: string
+  }
+}
 
 export async function generateStaticParams() {
-  let posts = getBlogPosts()
-  // console.log(posts,'posts')
-  // return posts.map((post) => ({ slug: post.id}))
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  const posts = await getThinking()
+  return posts.map((post) => ({ slug: post.id}))
 }
 
-// export function generateMetadata({ params }) {
-//   let post = getBlogPosts().find((post) => post.slug === params.slug)
-//   if (!post) {
-//     return
-//   }
+export const Page = async ({ params }) => {
+   console.log(params,'params')
+     const page = await getPage(params.slug)
 
-//   let {
-//     title,
-//     publishedAt: publishedTime,
-//     summary: description,
-//     image,
-//   } = post.metadata
-//   let ogImage = image
-//     ? image
-//     : `${baseUrl}/og?title=${encodeURIComponent(title)}`
-
-//   return {
-//     title,
-//     description,
-//     openGraph: {
-//       title,
-//       description,
-//       type: 'article',
-//       publishedTime,
-//       url: `${baseUrl}/blog/${post.slug}`,
-//       images: [
-//         {
-//           url: ogImage,
-//         },
-//       ],
-//     },
-//     twitter: {
-//       card: 'summary_large_image',
-//       title,
-//       description,
-//       images: [ogImage],
-//     },
-//   }
-// }
-
-export default function Blog({ params }) {
-  // let post = getPublishedPosts().find((post) => post.slug === params.slug)
-
-  // if (!post) {
-  //   notFound()
-  // }
   return (
-    <div>welcome!</div>
+    <div className="flex relative">
+      <div className='content-wrapper pb-10 prose'>
+      {/* {JSON.stringify(params)} */}
+      {/* <Title>{page.name}</Title> */}
+       {renderBlocks(page.content)}
+      </div>
+      {/* <Outline content={page.content} /> */}
+    </div>
   )
-  // return (
-  //   <section>
-  //     <script
-  //       type="application/ld+json"
-  //       suppressHydrationWarning
-  //       dangerouslySetInnerHTML={{
-  //         __html: JSON.stringify({
-  //           '@context': 'https://schema.org',
-  //           '@type': 'BlogPosting',
-  //           headline: post.metadata.title,
-  //           datePublished: post.metadata.publishedAt,
-  //           dateModified: post.metadata.publishedAt,
-  //           description: post.metadata.summary,
-  //           image: post.metadata.image
-  //             ? `${baseUrl}${post.metadata.image}`
-  //             : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-  //           url: `${baseUrl}/blog/${post.slug}`,
-  //           author: {
-  //             '@type': 'Person',
-  //             name: 'My Portfolio',
-  //           },
-  //         }),
-  //       }}
-  //     />
-  //     <h1 className="title font-semibold text-2xl tracking-tighter">
-  //       {post.name}
-  //     </h1>
-  //     <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-  //       <p className="text-sm text-neutral-600 dark:text-neutral-400">
-  //         {formatDate(post.metadata.publishedAt)}
-  //       </p>
-  //     </div>
-  //     <article className="prose">
-  //       <CustomMDX source={post.content} />
-  //     </article>
-  //   </section>
-  // )
+  // ...
 }
+export default Page

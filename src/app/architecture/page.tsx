@@ -3,8 +3,8 @@ import {collectAllTags, getThinking } from '@/services/notion'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Blog',
-  description: 'Read my blog.',
+  title: 'Architecture',
+  description: '前端哪来的架构？',
 }
 
 // export default function Page() {
@@ -19,13 +19,13 @@ export const metadata = {
 
 const NotePage = async () => {
   const posts = await getThinking()
-  // console.log(posts,'posts')
+  console.log(posts,'posts')
   // const allTags = await collectAllTags(posts)
 
   return (
     <section className='max-w-xs w-full md:max-w-lg lg:max-w-xl xl:max-w-2xl'>
       <header>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Notes</h1>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Architecture</h1>
         {/* <Title>Notes</Title> */}
         {/* <Description
         >
@@ -39,7 +39,7 @@ const NotePage = async () => {
           <Link
             key={post.id}
             className="flex flex-col space-y-1 mb-4"
-            href={`/architecture/${post.name}`}
+            href={`/architecture/${post.id}`}
           >
             <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
               {/* <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
