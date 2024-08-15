@@ -1,22 +1,14 @@
-import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/app/components/mdx'
-import { formatDate, getBlogPosts } from '@/app/blog/utils'
-import { baseUrl } from '@/app/sitemap'
 import {renderBlocks} from '@/widgets/block-render'
 import {getThinking,getPage } from '@/services/notion'
-
-interface Props {
-  params: {
-    slug: string
-  }
-}
+// import { notFound } from 'next/navigation'
+// import { baseUrl } from '@/app/sitemap'
 
 export async function generateStaticParams() {
   const posts = await getThinking()
   return posts.map((post) => ({ slug: post.id}))
 }
 
-export const Page = async ({ params }) => {
+export const NoionPage = async ({ params }) => {
    console.log(params,'params')
      const page = await getPage(params.slug)
 
@@ -32,4 +24,4 @@ export const Page = async ({ params }) => {
   )
   // ...
 }
-export default Page
+export default NoionPage
