@@ -1,7 +1,5 @@
-'use client'
 import classnames from 'classnames'
 import {Code} from "@nextui-org/react"
-// import {CodeBlock,} from '@/components/ui'
 import {Link} from './link'
 
 interface TextProps {
@@ -45,5 +43,3 @@ export const RichText = ({rich_text, showAnchorIcon=true}:TextProps) => {
     )
   })
 }
-
-export default Text

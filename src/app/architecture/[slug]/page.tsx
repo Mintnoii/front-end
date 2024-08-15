@@ -8,9 +8,9 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.id}))
 }
 
-export const NoionPage = async ({ params }) => {
-   console.log(params,'params')
-     const page = await getPage(params.slug)
+export default async function Blog({ params }: { params: { slug: string } }) {
+  console.log(params,'params')
+  const page = await getPage(params.slug)
 
   return (
     <div className="flex relative">
@@ -22,6 +22,4 @@ export const NoionPage = async ({ params }) => {
       {/* <Outline content={page.content} /> */}
     </div>
   )
-  // ...
 }
-export default NoionPage
