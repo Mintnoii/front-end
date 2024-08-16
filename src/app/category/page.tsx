@@ -1,29 +1,15 @@
-// import { BlogPosts } from '@/app/components/posts'
-import {collectAllTags, getThinking } from '@/services/notion'
+import {fetchPosts } from '@/services/notion'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'Architecture',
-  description: '前端哪来的架构？',
-}
-
-const NotePage = async () => {
-  const posts = await getThinking()
+const NotePage = async (context) => {
+  console.log(context,'context')
+  const posts = await fetchPosts()
   console.log(posts,'posts')
-  // const allTags = await collectAllTags(posts)
-
   return (
     <section className='max-w-xs w-full md:max-w-lg lg:max-w-xl xl:max-w-2xl'>
       <header>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Architecture</h1>
-        {/* <Title>Notes</Title> */}
-        {/* <Description
-        >
-          This is where I write about programming, tech, life, and everything in
-          between.
-        </Description> */}
+        <h1 className="font-semibold text-2xl mt-8 mb-8 tracking-tighter">Category</h1>
       </header>
-      {/* <PostTable  posts={posts} /> */}
       {
         posts?.map((post) => (
           <Link

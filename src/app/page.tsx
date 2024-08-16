@@ -1,20 +1,15 @@
-import { LastPost } from '@/widgets/last-post'
 import ProfileCard from '@/features/profile-card'
-
+import LastPosts from '@/features/last-posts'
+import CategoryCard from '@/features/category-card'
 export default function Page() {
   return (
-    <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        Front-end Fun
-      </h1>
-      <div className='flex'>
-    <ProfileCard />
+    <section className="flex-1 w-full h-full flex gap-6 relative page-wrapper py-6">
+      <div className='flex flex-col gap-6'>
+        <ProfileCard />
+        <CategoryCard />
       </div>
-      <blockquote className="mt-6 border-l-2 pl-6 italic">
-      页面仔的自娱自乐~
-    </blockquote>
-      <div className="my-8">
-        <LastPost />
+      <div className='flex-1'>
+        <LastPosts />
       </div>
     </section>
   )

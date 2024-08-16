@@ -1,6 +1,9 @@
 import {NotionKit,IPageObject} from "@tachikomas/notion-kit"
 import { IBlock, IPost, IProject, ITag, IBlockObjectResp, Loose } from '@/services/notion/types'
 import { formatProject, formatPageInfo, formatContent } from './format'
+import { group,isEmpty } from '@/shared'
+
+
 const {notion, queryDatabase, retrievePage, retrieveBlockChildren }  = new NotionKit({ token: process.env.NOTION_TOKEN })
 export { notion, queryDatabase, retrieveBlockChildren, retrievePage }
 
@@ -24,6 +27,32 @@ export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<I
       },
     ],
     }
+  })
+  return dbRes.results.map((page) => formatPageInfo(page as IPageObject))
+}
+
+interface IFilter {
+  category?: string
+}
+export const fetchPosts = async (filters?:IFilter): Promise<IPost[]> => {
+  console.log(filters,'filters')
+  const requiredFilter = {
+        property: "Status",
+        status: {
+          equals: 'Blog',
+        }
+      }
+  const withCategoryFilter = {
+    and: [requiredFilter, {
+    property: "Category",
+    select: {
+      equals: filters?.category || ''
+    }
+  }]
+  }
+  const dbRes = await queryDatabase({
+    database_id: process.env.NOTION_THINKING_PAGE_ID || '',
+    filter: isEmpty(filters?.category) ? requiredFilter : withCategoryFilter
   })
   return dbRes.results.map((page) => formatPageInfo(page as IPageObject))
 }

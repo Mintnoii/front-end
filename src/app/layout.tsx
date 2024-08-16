@@ -2,7 +2,8 @@ import './global.css'
 import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { Nav } from '@/widgets/nav'
+import TopNav from '@/features/top-nav'
+
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 // import Footer from './components/footer'
@@ -61,13 +62,13 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning className='scroll-smooth scroll-pt-16'
     >
-      <body className=' antialiased lg:mx-auto min-w-mini min-h-screen pb-8'>
-        <Providers>
-        <div className="min-w-0 mt-6 flex flex-col ">
-          <Nav />
-          <section className="flex w-full relative justify-center">
+      <body>
+        <Providers >
+        <div className="flex flex-col items-center min-w-mini min-h-screen">
+          <TopNav />
+          {/* <section className="flex w-full relative justify-center"> */}
           {children}
-          </section>
+          {/* </section> */}
          {/* <Footer /> */}
         </div>
           <Analytics />
