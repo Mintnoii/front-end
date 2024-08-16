@@ -2,39 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
-}
-
-:root {
-  --sh-class: #2d5e9d;
-  --sh-identifier: #354150;
-  --sh-sign: #8996a3;
-  --sh-string: #007f7a;
-  --sh-keyword: #e02518;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
+* {
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  min-width: 360px;
+  overflow-y: scroll;
 }
 
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+*::-webkit-scrollbar-thumb {
+  background: #c6c6c6 !important;
+  border-radius: 10px !important;
+}
+/* *::-webkit-scrollbar-thumb:hover {
+  background: rgba(198,198,198, 1) !important;
+  border-radius: 10px !important;
+} */
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+@layer components {
+  .content-wrapper {
+    @apply max-w-xs break-words md:max-w-lg lg:max-w-xl xl:max-w-2xl text-neutral-800 dark:text-neutral-200;
+  }
+}
 .prose .anchor {
   @apply absolute invisible no-underline;
 
@@ -81,8 +79,8 @@ html {
   @apply m-0;
 }
 
-.prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+.content-wrapper p {
+  @apply my-2 text-neutral-800 dark:text-neutral-200;
 }
 
 .prose h1 {
@@ -90,7 +88,7 @@ html {
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-medium tracking-tight my-2;
 }
 
 .prose h3 {
