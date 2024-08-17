@@ -36,6 +36,13 @@ html {
     @apply max-w-xs break-words md:max-w-lg lg:max-w-xl xl:max-w-2xl text-neutral-800 dark:text-neutral-200;
   }
 }
+@layer components {
+        .dash-line::before {
+            content: "";
+            @apply w-[10%] h-full absolute -top-1/2 left-[calc(50%_-_1px)] border-l-[2px]
+            border-dashed pointer-events-none border-[var(--line-color)] transition
+        }
+    }
 .prose .anchor {
   @apply absolute invisible no-underline;
 

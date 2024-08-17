@@ -28,11 +28,13 @@ export const formatProject = (page: IPageObject): IProject => {
 export const formatPageInfo = (page: IPageObject): IPost => {
   const category_name = (R.pathOr(page, ['properties','Category','select',],{}) as Loose)?.name || ''
   const tags = R.pathOr(page, ['properties', 'Tags', 'multi_select'], []) as Loose[]
+  const publish_time = (R.pathOr(page, ['properties', 'Publish Time', 'date'],{}) as Loose)?.start
+  // console.log(page,'page=====', publish_time)
   return {
     id: page.id,
     name: (R.pathOr(page, ['properties', 'Page', 'title'], []) as IRichTextItem[])?.[0]?.text?.content || '',
     cover: R.pathOr(page, ['cover', 'file', 'url'], '') as string,
-    last_edited_time: formatDate(page.last_edited_time),
+    last_edited_time: publish_time || formatDate(page.last_edited_time),
     tags,
     category_name,
   }

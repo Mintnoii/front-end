@@ -9,9 +9,9 @@ const navItems = {
   '/': {
     name: 'home',
   },
-  '/category': {
-    name: 'category',
-  },
+  // '/category': {
+  //   name: 'category',
+  // },
   'https://www.mintnoii.com': {
     name: 'mintnoii',
   },

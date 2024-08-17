@@ -8,12 +8,11 @@ export default function ProfileCard() {
   return (
     <Card className="max-w-80">
       <CardHeader className="justify-between">
-        <div className="flex gap-5">
+        <div className="flex gap-5 p-2">
           <Avatar isBordered radius="full" size="lg"  src="./mintnoii.jpg" />
-
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">Qing Wang</h4>
-            <h5 className="text-small tracking-tight text-default-400">@Mintnoii</h5>
+            <span className="text-md  font-semibold leading-none text-default-600">Qing Wang</span>
+            <span className="text-small tracking-tight text-default-400">@Mintnoii</span>
           </div>
         </div>
         {/* <Button

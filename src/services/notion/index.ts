@@ -7,7 +7,7 @@ import { group,isEmpty } from '@/shared'
 const {notion, queryDatabase, retrievePage, retrieveBlockChildren }  = new NotionKit({ token: process.env.NOTION_TOKEN })
 export { notion, queryDatabase, retrieveBlockChildren, retrievePage }
 
-export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<IPost[]> => {
+export const getBlogs = async (database_id: string): Promise<IPost[]> => {
   // const moreFilters = filters || []
   const dbRes = await queryDatabase({
     database_id,
@@ -17,12 +17,6 @@ export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<I
         property: "Status",
         status: {
           equals: 'Blog',
-        }
-      },
-      {
-        property: "Category",
-        select: {
-          equals: '前端架构'
         }
       },
     ],
@@ -35,7 +29,7 @@ interface IFilter {
   category?: string
 }
 export const fetchPosts = async (filters?:IFilter): Promise<IPost[]> => {
-  console.log(filters,'filters')
+  // console.log(filters,'filters')
   const requiredFilter = {
         property: "Status",
         status: {
@@ -54,7 +48,11 @@ export const fetchPosts = async (filters?:IFilter): Promise<IPost[]> => {
     database_id: process.env.NOTION_THINKING_PAGE_ID || '',
     filter: isEmpty(filters?.category) ? requiredFilter : withCategoryFilter
   })
-  return dbRes.results.map((page) => formatPageInfo(page as IPageObject))
+  return dbRes.results.map((page) => formatPageInfo(page as IPageObject)).sort((a, b) => {
+    const dateA = new Date(a.last_edited_time).getTime()
+    const dateB = new Date(b.last_edited_time).getTime()
+    return dateB - dateA
+  })
 }
 
 export const getPublishedPosts = async () => {
