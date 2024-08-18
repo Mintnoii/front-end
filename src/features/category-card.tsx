@@ -6,11 +6,10 @@ import React from "react";
 
 export default async function CategoryCard() {
   const posts = await fetchPosts()
-  console.log(posts, 'posts', group(posts, p => p.category_name))
   const postsGroup = group(posts, p => p.category_name)
-  // const allTags = await collectAllTags(posts)
+  const allTags = await collectAllTags(posts)
+  console.log('allTags', allTags)
   const categorys = Object.keys(postsGroup).map(category => ({ key: category, label: category }))
-  console.log(postsGroup, 'postsGroup', categorys)
   // const categorys = [{key: 'all', label: 'All'}]
   return (
     <Card>

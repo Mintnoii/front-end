@@ -78,38 +78,6 @@ export const collectAllTags = (posts: IPost[]) => {
   }, [] as ITag[])
 }
 
-// /**
-//  * 获取开源项目数据
-//  */
-export const getThinking = async () => (getBlogs(process.env.NOTION_THINKING_PAGE_ID || ''))
-// /**
-//  * 获取开源项目数据
-//  */
-// export const getProjects = async (): Promise<IProject[]> => {
-//   const dbRes = await queryDatabase({
-//     database_id: process.env.NOTION_PROJECTS_PAGE_ID || '',
-//     filter: {
-//       'or': [
-//         // {
-//         //   property: 'Status',
-//         //   status: {
-//         //     equals: 'In progress',
-//         //   }
-//         // },
-//         {
-//           property: 'Status',
-//           status: {
-//             equals: 'Done',
-//           }
-//         }
-//       ]
-//     }
-//   })
-//   // return dbRes.results as IPageObject[]
-//   return dbRes.results.map((item) => formatProject(item as IPageObject))
-// }
-
-
 // 获取指定页面 (page_id) 下的所有块，并将这些块内容以数组形式返回
 // 这里的块都为第一层的内容，不包含子块
 export const getAllBlocks = async (page_id: string, start_cursor?: string) => {
