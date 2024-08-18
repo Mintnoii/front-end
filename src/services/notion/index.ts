@@ -1,10 +1,13 @@
 import {NotionKit,IPageObject} from "@tachikomas/notion-kit"
 import { IBlock, IPost, IProject, ITag, IBlockObjectResp, Loose } from '@/services/notion/types'
 import { formatProject, formatPageInfo, formatContent } from './format'
+import { group,isEmpty } from '@/shared'
+
+
 const {notion, queryDatabase, retrievePage, retrieveBlockChildren }  = new NotionKit({ token: process.env.NOTION_TOKEN })
 export { notion, queryDatabase, retrieveBlockChildren, retrievePage }
 
-export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<IPost[]> => {
+export const getBlogs = async (database_id: string): Promise<IPost[]> => {
   // const moreFilters = filters || []
   const dbRes = await queryDatabase({
     database_id,
@@ -16,16 +19,40 @@ export const getBlogs = async (database_id: string, filters?:Loose[]): Promise<I
           equals: 'Blog',
         }
       },
-      {
-        property: "Category",
-        select: {
-          equals: '前端架构'
-        }
-      },
     ],
     }
   })
   return dbRes.results.map((page) => formatPageInfo(page as IPageObject))
+}
+
+interface IFilter {
+  category?: string
+}
+export const fetchPosts = async (filters?:IFilter): Promise<IPost[]> => {
+  // console.log(filters,'filters')
+  const requiredFilter = {
+        property: "Status",
+        status: {
+          equals: 'Blog',
+        }
+      }
+  const withCategoryFilter = {
+    and: [requiredFilter, {
+    property: "Category",
+    select: {
+      equals: filters?.category || ''
+    }
+  }]
+  }
+  const dbRes = await queryDatabase({
+    database_id: process.env.NOTION_THINKING_PAGE_ID || '',
+    filter: isEmpty(filters?.category) ? requiredFilter : withCategoryFilter
+  })
+  return dbRes.results.map((page) => formatPageInfo(page as IPageObject)).sort((a, b) => {
+    const dateA = new Date(a.last_edited_time).getTime()
+    const dateB = new Date(b.last_edited_time).getTime()
+    return dateB - dateA
+  })
 }
 
 export const getPublishedPosts = async () => {
@@ -50,38 +77,6 @@ export const collectAllTags = (posts: IPost[]) => {
     return allTags
   }, [] as ITag[])
 }
-
-// /**
-//  * 获取开源项目数据
-//  */
-export const getThinking = async () => (getBlogs(process.env.NOTION_THINKING_PAGE_ID || ''))
-// /**
-//  * 获取开源项目数据
-//  */
-// export const getProjects = async (): Promise<IProject[]> => {
-//   const dbRes = await queryDatabase({
-//     database_id: process.env.NOTION_PROJECTS_PAGE_ID || '',
-//     filter: {
-//       'or': [
-//         // {
-//         //   property: 'Status',
-//         //   status: {
-//         //     equals: 'In progress',
-//         //   }
-//         // },
-//         {
-//           property: 'Status',
-//           status: {
-//             equals: 'Done',
-//           }
-//         }
-//       ]
-//     }
-//   })
-//   // return dbRes.results as IPageObject[]
-//   return dbRes.results.map((item) => formatProject(item as IPageObject))
-// }
-
 
 // 获取指定页面 (page_id) 下的所有块，并将这些块内容以数组形式返回
 // 这里的块都为第一层的内容，不包含子块

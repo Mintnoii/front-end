@@ -2,12 +2,10 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/app/components/mdx'
 import { formatDate, getBlogPosts } from '@/app/blog/utils'
 import { baseUrl } from '@/app/sitemap'
-import {getPublishedPosts,getPage } from '@/services/notion'
 
 export async function generateStaticParams() {
   let posts = getBlogPosts()
-  const posts2 = await getPublishedPosts()
-  console.log(posts,'posts', posts2)
+  console.log(posts,'posts')
   // return posts.map((post) => ({ slug: post.id}))
 
   return posts.map((post) => ({

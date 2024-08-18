@@ -8,7 +8,7 @@ export function formatHashLink(link_text: string) {
 
 const renderHeading = (type: string, text: string) => {
   return (
-    <Link {...{ color: 'foreground' }} className={classnames('font-bold text-neutral-800 dark:text-neutral-100', {
+    <Link {...{ color: 'foreground' }} className={classnames('font-bold', {
       'text-3xl my-4': type === 'heading_1',
       'text-2xl my-3': type === 'heading_2',
       'text-xl my-2': type === 'heading_3',
@@ -39,9 +39,7 @@ export const renderBlock = (block: any, options?: any) => {
       }
     case 'paragraph':
       return (
-        <p className={classnames('my-4 text-neutral-800 dark:text-neutral-100',{
-          'pl-4': isToggleContent
-        })}>
+        <p className={classnames({'pl-4': isToggleContent})}>
           <RichText rich_text={rich_text} />
         </p>
       )
@@ -53,7 +51,7 @@ export const renderBlock = (block: any, options?: any) => {
       )
     case 'bulleted_list_item':
       return (
-        <li className="ml-4 py-0.5 text-neutral-800 dark:text-neutral-100">
+        <li className="ml-4 py-0.5">
           <RichText rich_text={rich_text} />
           {has_children && (children.map((block: any) => (renderBlock(block))))}
         </li>
@@ -66,7 +64,7 @@ export const renderBlock = (block: any, options?: any) => {
       )
     case 'numbered_list_item':
       return (
-        <li className="ml-4 py-0.5 text-neutral-800 dark:text-neutral-100">
+        <li className="ml-4 py-0.5">
           <RichText rich_text={rich_text} />
           {has_children && (children.map((block: any) => (renderBlock(block))))}
         </li>
@@ -118,7 +116,7 @@ export const renderBlock = (block: any, options?: any) => {
       const src = image.type === 'external' ? image.external.url : image.file.url
       // const figcaption = caption.length >= 1 ? caption[0].plain_text : ''
       return (
-        <figure className="mt-0">
+        <figure className="mt-1 mb-1">
           <img src={src} alt="" />
           {/* <img src={src} alt={figcaption} /> */}
           {/* <figcaption className="text-center">{caption}</figcaption> */}

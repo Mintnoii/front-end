@@ -1,6 +1,4 @@
 'use client'
-
-import "./globals.css"
 import { ThemeProvider } from 'next-themes'
 import {NextUIProvider} from "@nextui-org/react"
 

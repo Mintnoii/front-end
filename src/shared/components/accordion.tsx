@@ -9,9 +9,11 @@ interface ICustomAccordion {
 
 export const CustomAccordion = (customProps: ICustomAccordion) => {
   return (
-   <Accordion {...customProps.props} data-focus-visible={false} showDivider={false} isCompact={true}>
+   <Accordion className="mt-2 mb-2 px-0 " {...customProps.props} variant="splitted"  data-focus-visible={false} isCompact={true}>
      <AccordionItem {...customProps.itemProps}>
-          {customProps.children}
+      <div className="pb-4">
+         {customProps.children}
+      </div>
       </AccordionItem>
    </Accordion>
   )

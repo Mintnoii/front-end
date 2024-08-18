@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/theme": "^2.2.9",
     "@tachikomas/notion-kit": "^0.0.3",
