@@ -38,9 +38,9 @@ export default async function ArchivePanel(context) {
                                 "
                                 ></div>
                             </div>
-                            <div className="w-[65%] md:max-w-[60%] md:w-[60%] text-left font-bold
+                            <div className="w-[65%] md:max-w-[60%] md:w-[60%] text-left
                                 group-hover:translate-x-1 transition-all group-hover:text-primary
-                                text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
+                                pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
                             >
                               {post.name}
                             </div>

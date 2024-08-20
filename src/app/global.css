@@ -33,7 +33,7 @@ html {
     @apply break-words max-w-xl  md:max-w-2xl lg:max-w-3xl xl:max-w-4xl text-neutral-800 dark:text-neutral-200;
   }
   .content-wrapper {
-    @apply max-w-xs break-words md:max-w-lg lg:max-w-xl xl:max-w-2xl text-neutral-800 dark:text-neutral-200;
+    @apply w-1/2 max-w-xs break-words md:max-w-lg lg:max-w-xl xl:max-w-2xl text-neutral-800 dark:text-neutral-200;
   }
 }
 @layer components {
