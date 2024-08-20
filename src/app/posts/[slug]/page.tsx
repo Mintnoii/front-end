@@ -11,7 +11,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
     <div className="flex relative">
       <div className='content-wrapper pb-10 prose'>
       {/* {JSON.stringify(params)} */}
-      {/* <Title>{page.name}</Title> */}
+      <h1>{page.name}</h1>
        {renderBlocks(page.content)}
       </div>
       {/* <Outline content={page.content} /> */}
