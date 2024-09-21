@@ -6,12 +6,11 @@ import { getPage } from '@/services/notion'
 export default async function Blog({ params }: { params: { slug: string } }) {
   // console.log(context,'context')
   const page = await getPage(params.slug)
-  console.log(params,'params',page)
   return (
-    <div className="flex relative">
+    <div className="flex justify-center w-full relative">
       <div className='content-wrapper pb-10 prose'>
       {/* {JSON.stringify(params)} */}
-      <h1>{page.name}</h1>
+      <div className="transition font-bold block dark:text-white/90 mb-3 md:before:w-1 md:text-[2.5rem]/[2.75rem] text-2xl text-black/90 w-full">{page.name}</div>
        {renderBlocks(page.content)}
       </div>
       {/* <Outline content={page.content} /> */}
