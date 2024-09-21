@@ -20,7 +20,6 @@ const renderHeading = (type: string, text: string) => {
 
 //TODO: improve types here, cleanup the code
 export const renderBlock = (block: any, options?: any) => {
-  // console.log(block, 'block');
   const { id, type, rich_text, has_children, children, checked, image, caption, language, url } = block
   const {isToggleContent=false} = options || {}
   switch (type) {
@@ -51,7 +50,7 @@ export const renderBlock = (block: any, options?: any) => {
       )
     case 'bulleted_list_item':
       return (
-        <li className="ml-4 py-0.5">
+        <li className="ml-4 py-0.5" key={id}>
           <RichText rich_text={rich_text} />
           {has_children && (children.map((block: any) => (renderBlock(block))))}
         </li>
